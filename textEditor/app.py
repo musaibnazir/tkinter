@@ -1,0 +1,45 @@
+from tkinter import *
+from tkinter import filedialog
+
+def savefile():
+    file = filedialog.asksaveasfilename()
+    f=open(file,"w")
+    data = textbox.get(t.END)
+    f.write(data)
+    f.close()
+    print("File Saved")
+def openfile():
+    file = filedialog.askopenfilename()
+    stream = open(file,"r")
+    data = stream.read()
+    stream.close()
+    textbox.insert(t.END,data)
+
+main = Tk()
+main.title("MyNotePad")
+menubar = Menu(main)
+file = Menu(menubar, tearoff=0)
+file.add_command(label="New")
+file.add_command(label="Open", command=openfile)
+file.add_command(label="Save", command=savefile)
+file.add_separator()
+file.add_command(label="Exit", command=main.quit)
+menubar.add_cascade(label="File", menu=file)
+edit = Menu(menubar, tearoff=0)
+edit.add_command(label="Undo")
+edit.add_separator()
+edit.add_command(label="Cut")
+edit.add_command(label="Copy")
+edit.add_command(label="Paste")
+edit.add_command(label="Delete")
+edit.add_command(label="Select All")
+menubar.add_cascade(label="Edit", menu=edit)
+help = Menu(menubar, tearoff=0)
+help.add_command(label="About")
+menubar.add_cascade(label="Help", menu=help)
+main.config(menu=menubar)
+
+textbox=Text(width="1000",height="700")
+textbox.pack()
+
+main.mainloop()
